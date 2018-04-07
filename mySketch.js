@@ -2,8 +2,15 @@ var r, g, b;
 
 //'directions': tells whether an rgb value should be increasing or decreasing
 var dirs;
-
 var ripples = [];
+var mySound;
+var shape = 'rect';
+
+
+function preload(){
+    soundFormats('mp3', 'ogg');
+    mySound = loadSound('med.mp3');
+}
 
 function setup() {
     createCanvas(720, 480);
@@ -11,6 +18,8 @@ function setup() {
     g = random(85,170);
     b = random(170,256);
     background(r,g,b);
+
+    //translate(width/2, height/2);
 
     //initialize to increasing rgb values
     dirs = [1, 1, 1];
@@ -31,24 +40,26 @@ function draw() {
     background(r,g,b);
 
     noFill();
-    stroke(100, 200, 220);
     strokeWeight(8);
 
     //draw all ripples
+    rectMode(CENTER);
+    var rand = random(1, 4);
     for(let i = 0; i < ripples.length; i++){
-       ellipse(ripples[i].x, ripples[i].y, ripples[i].radius);
+       ripples[i].draw(shape);
        stroke(ripples[i].color);
-       ripples[i].update();
-
-       //delete ripple once it's too big
-       if(ripples[i].radius > MAX_RADIUS){
-           ripples.splice(i, 1);
-       }
-    }
+ 
+        //delete ripple once it's too big
+        if(ripples[i].radius > MAX_RADIUS){
+            ripples.splice(i, 1);
+        }
+     }
+       //triangle(ripples[i].radius, ripples[i].radius/2, ripples[i].y, ripples[i].radius, ripples[i].radius, ripples[i].x)
+       
 }
 
 const RGB_MAX = 200;
-const RGB_MIN = 75; 
+const RGB_MIN = 20; 
 
 //sets the directions depending on the current rgb values
 function setDirs(){
@@ -77,4 +88,13 @@ function setDirs(){
 function mouseClicked() {
     ripples.push(new Ripple(mouseX, mouseY));
     /* ADD SOUND EFFECTS HERE*/
+    mySound.setVolume(0.1);
+    mySound.play();
 }
+
+function keyTyped() {
+    if(key === 'r'){
+        ripples = []
+    }
+
+  }
