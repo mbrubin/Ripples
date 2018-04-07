@@ -3,6 +3,8 @@ var r, g, b;
 //'directions': tells whether an rgb value should be increasing or decreasing
 var dirs;
 
+var MAX_RADIUS;
+
 var ripples = [];
 
 function setup() {
@@ -12,15 +14,20 @@ function setup() {
     b = random(170,256);
     background(r,g,b);
 
+    ellipseMode(RADIUS);
+
+    noFill();
+    strokeWeight(8);
+
     //initialize to increasing rgb values
     dirs = [1, 1, 1];
+
+    //the maximum radius of a ripple before it is deleted (calculates hypotenuse)
+    MAX_RADIUS = floor(sqrt(pow(width,2) + pow(height,2)));
 }
 
 //affects the speed of color changing
 const RAND_CHANGE_AMOUNT = 10;
-
-//the maximum radius of a ripple before it is deleted
-const MAX_RADIUS = 800;//width;
 
 function draw() {
     setDirs();
@@ -30,15 +37,12 @@ function draw() {
     b = b + (dirs[2] * random(RAND_CHANGE_AMOUNT));
     background(r,g,b);
 
-    noFill();
-    stroke(100, 200, 220);
-    strokeWeight(8);
-
     //draw all ripples
     for(let i = 0; i < ripples.length; i++){
-       ellipse(ripples[i].x, ripples[i].y, ripples[i].radius);
-       stroke(ripples[i].color);
-       ripples[i].update();
+       //ellipse(ripples[i].x, ripples[i].y, ripples[i].radius);
+       //stroke(ripples[i].color);
+       ripples[i].draw('ellipse');
+       //ripples[i].update();
 
        //delete ripple once it's too big
        if(ripples[i].radius > MAX_RADIUS){
