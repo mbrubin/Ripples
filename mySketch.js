@@ -5,6 +5,10 @@ var dirs;
 
 var ripples = [];
 
+var mySound;
+
+var sounds = [];
+
 function setup() {
     createCanvas(720, 480);
     r = random(0,85);
@@ -14,6 +18,34 @@ function setup() {
 
     //initialize to increasing rgb values
     dirs = [1, 1, 1];
+}
+
+function preload(){
+    soundFormats('mp3', 'wav');
+   sound1 = loadSound('Assets/Loop1.mp3');
+   sound2 = loadSound('Assets/engine.mp3');
+   sound3 = loadSound('Assets/Bell.mp3');
+   sound4 = loadSound('Assets/scream.mp3');
+   sound5 = loadSound('Assets/sound.mp3');
+   sound6 = loadSound('Assets/car.mp3');
+   sound7 = loadSound('Assets/bass.mp3');
+   sound8 = loadSound('Assets/Hello.mp3');
+   sound9 = loadSound('Assets/gross.mp3');
+   sound10 = loadSound('Assets/wat.mp3');
+   sound11 = loadSound('Assets/stuff.mp3');
+   sound12 = loadSound('Assets/bubble.mp3');
+   sounds.push(sound1);
+   sounds.push(sound2);
+   sounds.push(sound3);
+   sounds.push(sound4);
+   sounds.push(sound5);
+   sounds.push(sound6);
+   sounds.push(sound7);
+   sounds.push(sound8);
+   sounds.push(sound9);
+   sounds.push(sound10);
+   sounds.push(sound11);
+   sounds.push(sound12);
 }
 
 //affects the speed of color changing
@@ -75,6 +107,11 @@ function setDirs(){
 }
 
 function mouseClicked() {
+    if(ripples.length > 35)
+        return;
     ripples.push(new Ripple(mouseX, mouseY));
     /* ADD SOUND EFFECTS HERE*/
+    mySound = random(sounds);
+    mySound.setVolume(0.5);
+    mySound.play();
 }
