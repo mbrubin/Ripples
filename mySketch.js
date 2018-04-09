@@ -10,11 +10,13 @@ var mySound;
 var sounds = [];
 
 function setup() {
-    createCanvas(720, 480);
+    createCanvas(displayWidth, displayHeight);
     r = random(0,85);
     g = random(85,170);
     b = random(170,256);
     background(r,g,b);
+
+    ellipseMode(RADIUS);
 
     //initialize to increasing rgb values
     dirs = [1, 1, 1];
@@ -52,7 +54,7 @@ function preload(){
 const RAND_CHANGE_AMOUNT = 10;
 
 //the maximum radius of a ripple before it is deleted
-const MAX_RADIUS = 800;//width;
+const MAX_RADIUS = 1836;//width;
 
 function draw() {
     setDirs();
