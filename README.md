@@ -3,7 +3,7 @@
 Recommended: run in local server using Node.js.
 
 For example:
-(1) instal Node.js
+ install Node.js
 
 (2) run command "npm install -g browser-sync" in a terminal
 
